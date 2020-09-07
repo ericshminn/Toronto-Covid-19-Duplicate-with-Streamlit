@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run toronto-covid19-streamlit.py
+web: sh setup.sh && streamlit run Corona_Dashboard_Streamlit.py
