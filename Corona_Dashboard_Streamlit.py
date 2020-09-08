@@ -5,6 +5,9 @@ import plotly.express as px
 
 st.title('Toronto COVID-19 Dashboard')
 st.sidebar.title('Toronto COVID-19')
+st.markdown('*Note*: This is a replicated web-app of the official City of Toronto COVID-19: Status of Cases in Toronto dashboard')
+st.markdown('Please visit the following website to view the original dashboard')
+st.markdown('https://www.toronto.ca/home/covid-19/covid-19-latest-city-of-toronto-news/covid-19-status-of-cases-in-toronto/')
 
 DATA_URL = pd.ExcelFile('CityofToronto_COVID-19_Data.xlsx')
 
@@ -30,6 +33,8 @@ df_severity = pd.read_excel(DATA_URL, 'Severity Indicators by Age Grou')
 
 st.sidebar.subheader('Outcomes')
 select = st.sidebar.selectbox('Outcome Types', ['Total Cases', 'Recovered Cases', 'Deaths'], key = 1)
+st.markdown('When using the charts below, hover over the bars to view numbers (counts) and other relevant information. Please note that the data shown here may differ from other sources, as data are extracted at different times. The data in the charts are subject to change as the public health investigation into reported cases is currently ongoing. Additionally, data definitions are subject to change as the pandemic evolves.')
+st.markdown('This information is updated three times per week on Monday, Wednesday and Friday')
 
 df_outcomes = df_outcomes.set_index('Outcome')
 df_outcomes_transposed = df_outcomes.transpose()
@@ -82,6 +87,9 @@ if select2 == 'Reported Date':
     fig = px.line(df_cum_cases_report, x = 'Reported Date', y = ['Recovered Cases', 'Active Cases', 'Deaths'], color_discrete_map = {'Recovered Cases': 'green', 'Active Cases': 'red', 'Deaths':'black'})
     fig.update_layout(autosize = False, width = 1000, height = 600)
     st.plotly_chart(fig)
+
+st.markdown('Data Notes: Data for the most recent episode dates are least complete, reflecting testing and report processing lags')
+st.markdown('Episode date is the earliest of symptom onset, laboratory testing, and reporting dates. In the figures above, cases are shown based on when the persons symptoms started, or if that is not known, the date that they were tested. If the test date is not known, the date that the case was reported to public health is used. AS the case is investigated and new information on these dates is determined, the dates in the graph will be updated')
 
 st.sidebar.subheader('Daily Case Counts')
 st.subheader('Daily Case Counts')
